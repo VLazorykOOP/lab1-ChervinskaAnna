@@ -50,6 +50,65 @@ int main() {
 елементів, що лежать правіше першого від’ємного елемента*/
 
 
+/*#include <iostream>
+#include <stdio.h>
+#include <conio.h>
+using namespace std;
+
+int main() {
+	int i, N;
+	int indV;
+	int min = 10000010;
+
+	cout << "Vedite N" << endl;
+	cin >> N;
+
+	int massive_A[100];
+
+	for (i = 0; i < N; i++) {
+
+		cout << "[" << i + 1 << "]" << ":";
+		cin >> massive_A[i];
+	}
+
+	for (i = 0; i < N; i++) {
+		if (massive_A[i] < 0) {
+			indV = i;
+			break;
+		}
+	}
+
+	for (i = indV; i < N; i++) {
+		if ((massive_A[i] < min) && (massive_A[i] > 0) &&
+			(massive_A[i] % 2 == 0)) {
+			min = massive_A[i];
+		}
+	}
+
+	for (i = N; i > 0; i--) {
+	 if (min == massive_A[i]){
+	  cout << i;
+	  break;
+	 }
+	}
+
+	getch();
+	return 0;
+}*/
+
+
+/*Завдання 3: На площині задано множину точок з координатами 
+ , , , ,..., , ,
+n n
+x y x y x y 1 1 2 2 n  200
+і координати вершин трикутника 
+  a a A x , y ,   b b B x , y ,   c c C x , y
+. Розробити програму, яка 
+обчислює кількість точок заданої множини, що належать 
+ABC */
+
+
+
 
 int ConsoleInputSizeArray(const int sizeMax)
 {
