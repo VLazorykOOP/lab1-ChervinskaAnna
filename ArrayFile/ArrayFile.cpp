@@ -1,4 +1,8 @@
-﻿#include "pch.h"
+﻿
+/*Завдання 1: Задано одновимірний масив А розміру N. Першу половину елементів масиву 
+помножити на 2, а другу - на 3.*/
+
+/*/#include "pch.h"
 #include <iostream>
 #include <stdio.h>
 #include <conio.h>
@@ -8,23 +12,20 @@ using namespace std;
 
 int main() {
     int i, N;
-    int avg;
 
     cout << "Vedite N" << endl;
     cin >> N;
 
-    int massive_A[100], massive_B[100];
+    int massive_A[100];
 
     for (i = 0; i < N; i++) {
 
-        cout << "[" << i + 1 << "]" << ":";
+        cout << "[" << i + 1 << "]" << ":"; 
         cin >> massive_A[i];
     }
 
-    avg = N / 2;
-
     for (i = 0; i < N; i++) {
-        if (i < avg) {
+        if (i < N / 2) {
             massive_A[i] = massive_A[i] * 2;
         }
 
@@ -42,7 +43,14 @@ int main() {
 
     getch();
     return 0;
-}
+}*/
+
+
+ /*Завдання 2: Знайти номер останнього мінімального елемента серед парних додатних
+елементів, що лежать правіше першого від’ємного елемента*/
+
+
+
 int ConsoleInputSizeArray(const int sizeMax)
 {
     int size = 0; 
