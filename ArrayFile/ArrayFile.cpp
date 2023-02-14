@@ -7,13 +7,13 @@
 #include <vector>
 
 #include <time.h>
-
+// com  tttt
 using namespace std;
 
 typedef double* pDouble;
 /*
 *   ConsoleInputArrayDouble
-*   
+*   ggggg fhfhg
 */
 int ConsoleInputSizeArray(const int sizeMax)
 {
