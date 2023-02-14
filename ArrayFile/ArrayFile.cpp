@@ -1,20 +1,48 @@
-﻿ // ArrayFile.cpp : Этот файл содержит функцию "main". Здесь начинается и заканчивается выполнение программы.
-//
-
+﻿#include "pch.h"
 #include <iostream>
-#include <fstream>
-#include <ios>
-#include <vector>
-
-#include <time.h>
-// com  tttt
+#include <stdio.h>
+#include <conio.h>
+using namespace winrt;
+using namespace Windows::Foundation;
 using namespace std;
 
-typedef double* pDouble;
-/*
-*   ConsoleInputArrayDouble
-*   ggggg fhfhg
-*/
+int main() {
+    int i, N;
+    int avg;
+
+    cout << "Vedite N" << endl;
+    cin >> N;
+
+    int massive_A[100], massive_B[100];
+
+    for (i = 0; i < N; i++) {
+
+        cout << "[" << i + 1 << "]" << ":";
+        cin >> massive_A[i];
+    }
+
+    avg = N / 2;
+
+    for (i = 0; i < N; i++) {
+        if (i < avg) {
+            massive_A[i] = massive_A[i] * 2;
+        }
+
+        else {
+            massive_A[i] = massive_A[i] * 3;
+        }
+    }
+
+    cout << "Res\n";
+    for (i = 0; i < N; i++) {
+        cout << massive_A[i] << " ";
+    }
+
+    cout << endl;
+
+    getch();
+    return 0;
+}
 int ConsoleInputSizeArray(const int sizeMax)
 {
     int size = 0; 
