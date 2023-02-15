@@ -107,6 +107,67 @@ x y x y x y 1 1 2 2 n  200
 обчислює кількість точок заданої множини, що належать 
 ABC */
 
+/*#include <iostream>
+#include <stdio.h>
+#include <conio.h>
+using namespace std;
+
+int main() {
+	int N;
+	double Ax, Bx, Cx;
+	double Ay, By, Cy;
+	double PL1, PL2, PL3, PL;
+	int count;
+	double Nx, Ny;
+	int i, j;
+
+	cout << "Vedite N" << endl;
+	cin >> N;
+
+	int massive[200][200];
+
+	for (i = 0; i < N; i++) {
+		for (j = 0; j < N; j++) {
+			cout << "[" << i + 1 << "]" << "[" << j + 1 << "]";
+			cin >> massive[i][j];
+		}
+	}
+
+	cout << "Vedite Ax" << endl;
+	cin >> Ax;
+
+	cout << "Vedite Ay" << endl;
+	cin >> Ay;
+
+	cout << "Vedite Bx" << endl;
+	cin >> Bx;
+
+	cout << "Vedite By" << endl;
+	cin >> By;
+
+	cout << "Vedite Cx" << endl;
+	cin >> Cx;
+
+	cout << "Vedite Cy" << endl;
+	cin >> Cy;
+
+	PL = 1 / 2((Ax * By + Bx * Cy + Cx * Ay) - (Ay * Bx + By * Cx + Cy * Ax));
+
+	for (i = 0; i < N; i++) {
+		PL1 = 1 / 2(() - ());
+		PL2 = 1 / 2(() - ());
+		PL3 = 1 / 2(() - ());
+	}
+
+	if (PL = PL1 + PL2 + PL3) {
+		count++
+	}
+
+	cout << "RES" << endl << count  ;
+
+		getch();
+	return 0;
+}*/
 
 
 
