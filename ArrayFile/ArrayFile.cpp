@@ -1,56 +1,127 @@
 ﻿
-/*Завдання 1: Задано одновимірний масив А розміру N. Першу половину елементів масиву 
-помножити на 2, а другу - на 3.*/
-
-/*/#include "pch.h"
+/* Варіант 11 
+Завдання 1: Задано одновимірний масив А розміру N. Першу половину елементів масиву 
+помножити на 2, а другу - на 3.
+*/
 #include <iostream>
+#include <fstream>
 #include <stdio.h>
 #include <conio.h>
-using namespace winrt;
-using namespace Windows::Foundation;
 using namespace std;
 
+typedef struct {
+	int length;
+	int data[200];
+} TArray;
+
+
+void saveArrayToFile(TArray arr) {
+	char filename[200];
+	char answer;
+	cout << "Bazhaete zberigti?" << endl;
+	cin >> answer;
+	if (answer == 'N' or answer == 'n')
+		return;
+
+	cout << "FileName?" << endl;
+	cin >> filename;
+
+	cout << filename << endl;
+
+
+	ofstream outfile;
+	remove(filename);
+	outfile.open(filename);
+
+	for (int i = 0; i < arr.length; i++) {
+		outfile << " " << arr.data[i];
+	}
+
+	outfile.close();
+}
+
+
+TArray readFromFile() {
+	char filename[200];
+	TArray result;
+	result.length = 0;
+
+	cout << "Enter filename" << endl;
+	cin >> filename;
+
+	ifstream inFile;
+	inFile.open(filename);
+
+	if (inFile.is_open())
+	{
+		for (int i = 0; i < 200; i++)
+		{
+			inFile >> result.data[i];
+			result.length++;
+			cout << result.data[i] << " ";
+
+			if (inFile.eof())
+				break;
+		}
+
+		inFile.close(); // CLose input file
+	}
+
+	return result;
+}
+
+
+
 int main() {
-    int i, N;
+    int i;
+	TArray arr;
+	arr = readFromFile();
+	if (arr.length == 0)
+	{
+		cout << "File is not found!!!11" << endl;
 
-    cout << "Vedite N" << endl;
-    cin >> N;
+		cout << "Vedite Length" << endl;
+		cin >> arr.length;
 
-    int massive_A[100];
+		for (i = 0; i < arr.length; i++) {
 
-    for (i = 0; i < N; i++) {
+			cout << "[" << i + 1 << "]" << ":";
+			cin >> arr.data[i];
+		}
 
-        cout << "[" << i + 1 << "]" << ":"; 
-        cin >> massive_A[i];
-    }
+		saveArrayToFile(arr);
+	}
 
-    for (i = 0; i < N; i++) {
-        if (i < N / 2) {
-            massive_A[i] = massive_A[i] * 2;
+
+    for (i = 0; i < arr.length; i++) {
+        if (i < arr.length / 2) {
+			arr.data[i] = arr.data[i] * 2;
         }
-
         else {
-            massive_A[i] = massive_A[i] * 3;
+			arr.data[i] = arr.data[i] * 3;
         }
     }
 
-    cout << "Res\n";
-    for (i = 0; i < N; i++) {
-        cout << massive_A[i] << " ";
-    }
+	cout << "Res\n";
+	for (i = 0; i < arr.length; i++) {
+		cout << arr.data[i] << " ";
+	}
+
+	saveArrayToFile(arr);
 
     cout << endl;
 
-    getch();
+    _getch();
     return 0;
-}*/
+}
+
+
 
 
  /*Завдання 2: Знайти номер останнього мінімального елемента серед парних додатних
-елементів, що лежать правіше першого від’ємного елемента*/
+елементів, що лежать правіше першого від’ємного елемента
 
-
-/*#include <iostream>
+#include <iostream>
 #include <stdio.h>
 #include <conio.h>
 using namespace std;
