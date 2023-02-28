@@ -32,7 +32,7 @@ int ConsoleInputSizeArray(const int sizeMax)
 *   ConsoleInputArrayDouble
 *
 */
-int ConsoleInputArray(int sizeMax, double A[])
+int ConsoleInputArray(int sizeMax, int A[])
 {
     int size = ConsoleInputSizeArray(sizeMax);
     for (int i = 0; i < size; i++) {
@@ -45,7 +45,7 @@ int ConsoleInputArray(int sizeMax, double A[])
 *   RndInputArrayDouble
 *
 */
-int RndInputArray(int sizeMax, double A[])
+int RndInputArray(int sizeMax, int A[])
 {
     int size = ConsoleInputSizeArray(sizeMax);
     int r1 = 0, r2 = 0;
@@ -54,8 +54,11 @@ int RndInputArray(int sizeMax, double A[])
     for (int i = 0; i < size; i++) {
         r1 = rand();
         r2 = rand();
-        A[i] = 100.0 * r1;
-        A[i] = A[i] / (1.0 + r2);
+
+        A[i] = r1;
+        if (r2 % 2 == 0)
+            A[i] = -A[i];
+
         cout << A[i] << "   ";
     }
     return size;
@@ -99,8 +102,12 @@ void ConsoleInputVector(int sizeMax, vector<double>& A)
 *
 */
 
-void WriteArrayTextFile(int n, double* arr, const char* fileName)
+void WriteArrayTextFile(int n, int* arr)
 {
+    char fileName[200];
+    cout << "Input Filename:\n";
+    cin >> fileName;
+
     ofstream fout(fileName);
     if (fout.fail()) return;
     fout << n << endl;
@@ -108,7 +115,7 @@ void WriteArrayTextFile(int n, double* arr, const char* fileName)
         fout << arr[i] << "   ";
     fout.close(); //
 }
-void WriteArrayConsole(int n, double* arr)
+void WriteArrayConsole(int n, int* arr)
 {
     cout << "Array:\n";
     for (int i = 0; i < n; i++) {
@@ -121,7 +128,7 @@ void WriteArrayConsole(int n, double* arr)
 */
 
 
-int ReadArrayTextFile(int n, double* arr, const char* fileName)
+int ReadArrayTextFile(int n, int* arr, const char* fileName)
 { 
     int size;
     ifstream fin(fileName);
@@ -243,7 +250,7 @@ void ArrayLocal()
 }
 
 
-int InputArray(int sizeMax, double arr[]) {
+int InputArray(int sizeMax, int arr[]) {
     char ch;
     int i, arrLen;
 
@@ -273,7 +280,7 @@ int InputArray(int sizeMax, double arr[]) {
     return arrLen;
 }
 
-void OutputArray(int arrLen, double arr[]) {
+void OutputArray(int arrLen, int arr[]) {
     char ch;
 
     cout << "\n  Select Output method:   \n";
@@ -290,19 +297,18 @@ void OutputArray(int arrLen, double arr[]) {
         WriteArrayConsole(arrLen, arr);
         break;
     case '2':
-        WriteArrayTextFile(arrLen, arr, "File2.txt");
+        WriteArrayTextFile(arrLen, arr);
         break;
     case '3':
         WriteArrayConsole(arrLen, arr);
-        WriteArrayTextFile(arrLen, arr, "File2.txt");
+        WriteArrayTextFile(arrLen, arr);
         break;
     }
 }
 
 void Task1() {
-    char ch;
     int i, arrLen;
-    double arr[MAX_SIZE];
+    int arr[MAX_SIZE];
 
     arrLen = InputArray(MAX_SIZE, arr);
 
@@ -316,45 +322,41 @@ void Task1() {
     }
 
     OutputArray(arrLen, arr);
-
 }
 void Task2() {
-    cout << " \n   Task 2 is not ready \n";
-    int i, N;
+    int i, arrLen;
+    int arr[MAX_SIZE];
     int indV;
+    int indexResult;
     int min = 10000010;
 
-    cout << "Vedite N" << endl;
-    cin >> N;
+    arrLen = InputArray(MAX_SIZE, arr);
 
-    int massive_A[100];
 
-    for (i = 0; i < N; i++) {
-
-        cout << "[" << i + 1 << "]" << ":";
-        cin >> massive_A[i];
-    }
-
-    for (i = 0; i < N; i++) {
-        if (massive_A[i] < 0) {
+    for (i = 0; i < arrLen; i++) {
+        if (arr[i] < 0) {
             indV = i;
             break;
         }
     }
 
-    for (i = indV; i < N; i++) {
-        if ((massive_A[i] < min) && (massive_A[i] > 0) &&
-            (massive_A[i] % 2 == 0)) {
-            min = massive_A[i];
+    for (i = indV; i < arrLen; i++) {
+        if ((arr[i] < min) && (arr[i] > 0) &&
+            (arr[i] % 2 == 0)) {
+            min = arr[i];
         }
     }
 
-    for (i = N; i > 0; i--) {
-        if (min == massive_A[i]) {
-            cout << i;
+    for (i = arrLen; i > 0; i--) {
+        if (min == arr[i]) {
+            indexResult = i;
             break;
         }
     }
+    cout << "\n  Hомер останнього мінімального елемента серед парних додатних елементів, що лежать правіше першого від’ємного елемента :   \n";
+    cout << indexResult << "\n";
+
+    OutputArray(arrLen, arr);
 }
 
 void Task3() {
