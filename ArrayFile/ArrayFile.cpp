@@ -12,6 +12,10 @@ using namespace std;
 
 typedef double* pDouble;
 
+typedef struct {
+    double x, y;
+} TPoint;
+
 
 const int MAX_SIZE = 560;
 
@@ -41,6 +45,16 @@ int ConsoleInputArray(int sizeMax, int A[])
     return size;
 }
 
+int ConsoleInputArrayPoints(int sizeMax, TPoint A[])
+{
+    int size = ConsoleInputSizeArray(sizeMax);
+    for (int i = 0; i < size; i++) {
+        cout << " Array[ " << i << "].x "; cin >> A[i].x;
+        cout << " Array[ " << i << "].y "; cin >> A[i].y;
+    }
+    return size;
+}
+
 /*
 *   RndInputArrayDouble
 *
@@ -63,6 +77,32 @@ int RndInputArray(int sizeMax, int A[])
     }
     return size;
 }
+
+int RndInputArrayPoint(int sizeMax, TPoint A[])
+{
+    int size = ConsoleInputSizeArray(sizeMax);
+    int r1, r2, r3,r4,r5, r6;
+    srand(size);
+
+    for (int i = 0; i < size; i++) {
+        r1 = rand();
+        r2 = rand();
+        r3 = rand();
+        r4 = rand();
+        r5 = rand();
+        r6 = rand();
+
+        A[i].x = r1 / (1.0 + r2);
+        if (r3 % 2 == 0)
+            A[i].x = -A[i].x;
+
+        A[i].y = r4 / (1.0 + r5);
+        if (r6 % 2 == 0)
+            A[i].x = -A[i].x;
+    }
+    return size;
+}
+
 
 int ConsoleInputDynamicArrayNew(int sizeMax, pDouble& pA)
 {
@@ -122,14 +162,27 @@ void WriteArrayConsole(int n, int* arr)
         cout << "[" << i + 1 << "]" << ":" << arr[i] << "\n";
     }
 }
+void WriteArrayConsole(int n, TPoint* arr)
+{
+    cout << "Array:\n";
+    for (int i = 0; i < n; i++) {
+        cout << "[" << i + 1 << "].x" << ":" << arr[i].x << "\n";
+        cout << "[" << i + 1 << "].y" << ":" << arr[i].y << "\n";
+    }
+}
+
 /*
 *  ReadArrayTextFile
 *
 */
 
 
-int ReadArrayTextFile(int n, int* arr, const char* fileName)
+int ReadArrayTextFile(int n, int* arr)
 { 
+    char fileName[200];
+    cout << "Input Filename:\n";
+    cin >> fileName;
+
     int size;
     ifstream fin(fileName);
     if (fin.fail()) return 0;
@@ -142,113 +195,38 @@ int ReadArrayTextFile(int n, int* arr, const char* fileName)
     return size;
 }
 
-
-void WriteArrayBinFile(int n, double* arr, const char* fileName)
+void WriteArrayBinFile(int n, TPoint* arr)
 {
+    char fileName[200];
+    cout << "Input Filename:\n";
+    cin >> fileName;
+
     //ios_base
     ofstream bfout(fileName, ios_base::binary);
     if (bfout.fail()) return;
     bfout.write((const char*)&n, sizeof(int));
-    std::streamsize  cn = static_cast<std::streamsize>(n) * sizeof(double);
+    std::streamsize  cn = static_cast<std::streamsize>(n) * sizeof(TPoint);
     bfout.write((const char*)arr, cn);
     bfout.close();
 }
 
-int ReadArrayBinFile(int n, double* arr, const char* fileName)
+int ReadArrayBinFile(int n, TPoint* arr)
 {
+    char fileName[200];
+    cout << "Input Filename:\n";
+    cin >> fileName;
+
     int size = 0;
     ifstream bfin(fileName, ios_base::binary);
     if (bfin.fail()) return 0;
     bfin.read((char*)&size, sizeof(int));
     if (size <= 0) return 0;
     if (size > n) size = n;
-    bfin.read((char*)arr, static_cast<std::streamsize>(size) * sizeof(double));
+    bfin.read((char*)arr, static_cast<std::streamsize>(size) * sizeof(TPoint));
     bfin.close();
     // ssdhs
     return size;
 }
-
-void ShowMainMenu()
-{
-    system("cls");
-    cout << "    Main Menu  \n";
-    cout << "    1.  Task 1  \n";
-    cout << "    2.  Task 2  \n";
-    cout << "    3.  Task 3  \n";
-}
-
-void MenuTask()
-{
-    cout << "     Menu Task   \n";
-    cout << "    1.  Local array  \n";
-    cout << "    2.  Dynamic array 1 \n";
-    cout << "    3.  Dynamic array 2  new \n";
-    cout << "    4.  Dynamic array : vector \n";
-    cout << "    5.  Exit \n";
-}
-
-/*
-* Задано одновимірний масив А розміру 2N.
-* Побудувати два масиви В і С розміру N,
-* включивши  у масив В елементи масиву А з парними індексами,
-* а у С - з непарними.
-*****************
-*  A - in
-*  B, C - out
-*/
-void  TestVariant(int N, double* A, double* B, double* C) {
-    for (int i = 0; i < N; i++) {
-        B[i] = A[2 * i];
-        C[i] = A[2 * i + 1];
-    }
-}
-/*
-*  Task  Var
-*
-*
-*/
-void TaskV()
-{
-    char ch = '5';
-    do {
-        system("cls");
-        MenuTask();
-        ch = getchar();
-        getchar();
-        switch (ch) {
-        case '1': cout << " 1 "; break;
-        case '2': cout << " 2 "; break;
-            //
-        case '5': return;
-        }
-        cout << " Press any key and enter\n";
-        ch = getchar();
-    } while (ch != 27);
-
-}
-
-void ArrayLocal()
-{
-    double A[1000], B[500], C[500];
-    int n;
-    char ch = '5';
-    do {
-        system("cls");
-        MenuTask();
-        ch = getchar();
-        getchar();
-        switch (ch) {
-        case '1': cout << " 1 "; break;
-        case '2': cout << " 2 "; break;
-            //
-        case '5': return;
-        }
-        cout << " Press any key and enter\n";
-        ch = getchar();
-    } while (ch != 27);
-
-}
-
 
 int InputArray(int sizeMax, int arr[]) {
     char ch;
@@ -257,7 +235,7 @@ int InputArray(int sizeMax, int arr[]) {
     cout << "\n  Select Input method:   \n";
     cout << "    1.  Console all \n";
     cout << "    2.  Console - size, array - random \n";
-    cout << "    3.  File1.txt \n";
+    cout << "    3.  File \n";
     do {
         ch = _getch();
     } while (ch != '1' && ch != '2' && ch != '3');
@@ -272,8 +250,8 @@ int InputArray(int sizeMax, int arr[]) {
         arrLen = RndInputArray(MAX_SIZE, arr);
         break;
     case '3':
-        cout << "    3.  File 1.txt \n";
-        arrLen = ReadArrayTextFile(MAX_SIZE, arr, "File1.txt");
+        cout << "    3.  File \n";
+        arrLen = ReadArrayTextFile(MAX_SIZE, arr);
         break;
     }
 
@@ -285,8 +263,8 @@ void OutputArray(int arrLen, int arr[]) {
 
     cout << "\n  Select Output method:   \n";
     cout << "    1.  Console \n";
-    cout << "    2.  File2.txt \n";
-    cout << "    3.  Console & File2.txt \n";
+    cout << "    2.  File \n";
+    cout << "    3.  Console & File \n";
 
     do {
         ch = _getch();
@@ -359,8 +337,108 @@ void Task2() {
     OutputArray(arrLen, arr);
 }
 
+int InputArrayPoints(int sizeMax, TPoint arr[]) {
+    char ch;
+    int i, arrLen;
+
+    cout << "\n  Select Input method:   \n";
+    cout << "    1.  Console all \n";
+    cout << "    2.  Console - size, array - random \n";
+    cout << "    3.  File \n";
+    do {
+        ch = _getch();
+    } while (ch != '1' && ch != '2' && ch != '3');
+
+    switch (ch) {
+    case '1':
+        cout << "    1.  Console all \n";
+        arrLen = ConsoleInputArrayPoints(MAX_SIZE, arr);
+        break;
+    case '2':
+        cout << "    2.  Console - size, array - random \n";
+        arrLen = RndInputArrayPoint(MAX_SIZE, arr);
+        WriteArrayConsole(arrLen, arr);
+        break;
+    case '3':
+        cout << "    3.  File \n";
+        arrLen = ReadArrayBinFile(MAX_SIZE, arr);
+        WriteArrayConsole(arrLen, arr);
+        break;
+    }
+
+    return arrLen;
+}
+
+void OutputArrayPoint(int arrLen, TPoint arr[]) {
+    char ch;
+
+    cout << "\n  Select Output method:   \n";
+    cout << "    1.  Console \n";
+    cout << "    2.  File \n";
+    cout << "    3.  Console & File \n";
+
+    do {
+        ch = _getch();
+    } while (ch != '1' && ch != '2' && ch != '3');
+
+    switch (ch) {
+    case '1':
+        WriteArrayConsole(arrLen, arr);
+        break;
+    case '2':
+        WriteArrayBinFile(arrLen, arr);
+        break;
+    case '3':
+        WriteArrayConsole(arrLen, arr);
+        WriteArrayBinFile(arrLen, arr);
+        break;
+    }
+}
+
 void Task3() {
-    cout << " \n   Task 3 is not ready \n";
+    int N;
+    TPoint A, B, C;
+    TPoint Points[MAX_SIZE];
+    double PL1, PL2, PL3, PL;
+    double Nx, Ny;
+    int i, j;
+    int inside = 0;
+
+    cout << "Enter Ax" << endl;
+    cin >> A.x;
+
+    cout << "Enter Ay" << endl;
+    cin >> A.y;
+
+    cout << "Enter Bx" << endl;
+    cin >> B.x;
+
+    cout << "Enter By" << endl;
+    cin >> B.y;
+
+    cout << "Enter Cx" << endl;
+    cin >> C.x;
+
+    cout << "Enter Cy" << endl;
+    cin >> C.y;
+
+    N = InputArrayPoints(MAX_SIZE, Points);
+
+    PL = abs(((A.x * B.y + B.x * C.y + C.x * A.y) - (A.y * B.x + B.y * C.x + C.y * A.x)) / 2);
+
+    for (i = 0; i < N; i++) {
+        PL1 = abs(((Points[i].x * B.y + B.x * C.y + C.x * Points[i].y) - (Points[i].y * B.x + B.y * C.x + C.y * Points[i].x)) / 2);
+        PL2 = abs(((A.x * Points[i].y + Points[i].x * C.y + C.x * A.y) - (A.y * Points[i].x + Points[i].y * C.x + C.y * A.x)) / 2);
+        PL3 = abs(((A.x * B.y + B.x * Points[i].y + Points[i].x * A.y) - (A.y * B.x + B.y * Points[i].x + Points[i].y * A.x)) / 2);
+
+
+        if (PL == PL1 + PL2 + PL3) {
+            inside++;
+        }
+    }
+    cout << "There are " << inside << " points inside triangle.\t";
+    OutputArrayPoint(N, Points);
+
 }
 
 void SelectTask() {
@@ -388,12 +466,7 @@ int main()
 
     SelectTask();
 
-
-
-    //getchar();
-
     return 1;
-
 }
 
 // Запуск программы: CTRL+F5 или меню "Отладка" > "Запуск без отладки"
